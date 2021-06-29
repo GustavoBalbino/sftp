@@ -66,9 +66,9 @@ if [ -n "$gid" ]; then
 fi
 
 useradd "${useraddOptions[@]}" "$user"
-mkdir -p "/home/sftp/$user"
-chown root:root "/home/sftp/$user"
-chmod 755 "/home/sftp/$user"
+mkdir -p "/home/$user/sftp"
+chown root:root "/home/$user/sftp"
+chmod 755 "/home/$user/sftp"
 
 # Retrieving user id to use it in chown commands instead of the user name
 # to avoid problems on alpine when the user name contains a '.'
@@ -101,7 +101,7 @@ fi
 if [ -n "$dir" ]; then
     IFS=',' read -ra dirArgs <<< "$dir"
     for dirPath in "${dirArgs[@]}"; do
-        dirPath="/home/sftp/$user/$dirPath"
+        dirPath="/home/$user/sftp/$dirPath"
         if [ ! -d "$dirPath" ]; then
             log "Creating directory: $dirPath"
             mkdir -p "$dirPath"
